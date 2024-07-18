@@ -1,0 +1,342 @@
+<!-- html for the results page -->
+
+{% extends 'search/base.html' %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'search/style.css' %}">
+
+{% block content %}
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W6F27PLMJN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W6F27PLMJN');
+</script>
+
+    <div class="content-container">
+        <!--sidebar-->
+        {% include 'search/sidebar.html' %}
+
+    <div class="content">
+
+    <!--if no context, print message and show no content -->
+    {% if no_search %}
+    <div class="no-search-message">
+        <h3> Use the filter bar to search for legislation </h3>
+    </div>
+    {% else %}
+
+        <!--check to see if any hits were returned-->
+        {% if shown_bills %}
+
+        <!--print number of results-->
+        <h3> {% if num_results == 1%} 1 result: {% else %} {{num_results}} results: {% endif %} </h3>
+
+            {% for result in shown_bills %}
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        <!--card title = jurisdiction + bill number + bill title-->
+                        <a href="{{result.object.url}}" target="_blank" rel="noopener noreferrer"><strong>
+                            {% if result.object.bill_number != 'N/A' %}
+                                {% if result.object.state == "Federal" %}United States {% else %}
+                                {{ result.object.state }}
+                                {% endif %} 
+                                {{ result.object.bill_number }}:
+                            {% endif %}  {{ result.object.title}}</strong></a>
+                            
+                        <!--logos based on content-->
+                        <div class="logo-container">
+                            {% if result.object.state == "Federal" %}
+                                <img src="{% static 'images/capitol_outline.png' %}" alt="Federal Logo" class="header-logo">
+                            {% endif %}
+                            {% if result.object.status != 'N/A' %}
+                                {% if result.object.status == "Passed" %}
+                                    <img src="{% static 'images/passed.png' %}" alt="Passed" class="header-logo">
+                                {% elif result.object.status == "Vetoed" or result.object.status == "Failed" %}
+                                    <img src="{% static 'images/failed.png' %}" alt="Failed" class="header-logo">
+                                {% elif result.object.status != "Issued" %}
+                                    <img src="{% static 'images/partway_passed.png' %}" alt="In progress" class="header-logo">
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                    <p class="card-text"> 
+                        <!--check if fields have real values, print them out if they do-->
+                        {% if result.object.description != 'N/A' %}
+                        <b>Description:</b> {{ result.object.description }}<br>
+                        {% endif %}
+                        {% if result.object.content_collection != 'N/A' %}
+                        <b>Collection:</b> {{ result.object.content_collection }}<br>
+                        {% endif %}
+                        {% if result.object.status_date != '1-1-1970' %}
+                        <b>Status date:</b> {{ result.object.status_date }} <br>
+                        {% endif %}
+                        {% if result.object.status != 'N/A' %}
+                        <b>Status:</b> {{ result.object.status }} <br>
+                        {% endif %}
+                        {% if result.object.primary_sponsor != 'N/A' %}
+                        <b>Primary sponsor:</b> {{ result.object.primary_sponsor }} 
+                            {% if result.object.total_sponsors == 1%}(sole sponsor){% else %}({{ result.object.total_sponsors }} total sponsors)
+                            {% endif %}<br>
+                        {% endif %}
+                        {% if result.object.source != 'N/A' %}
+                        <b>Source:</b> {{ result.object.source }} <br>
+                        {% endif %}
+                        {% if result.object.last_action != 'N/A' %}
+                        <b>Last action:</b> {{ result.object.last_action }} ({{result.object.last_action_date}})<br>
+                        {% endif %}
+                        
+                    </p>
+
+
+                    <div class="card-text">
+                        {% if result.object.category_reasoning != 'N/A' %}
+                        <b>Category:</b>
+
+                        {% if result.object.societal_impact >= 3 or result.object.data_governance >= 3 or result.object.system_integrity >= 3 or result.object.robustness >= 3 %}
+                            {% if result.object.societal_impact >= 3 %}
+                                <br>Societal Impact
+                            {% endif %}
+                            {% if result.object.data_governance >= 3 %}
+                                <br>Data Governance 
+                            {% endif %}
+                            {% if result.object.system_integrity >= 3 %}
+                                <br>System Integrity 
+                            {% endif %}
+                            {% if result.object.robustness >= 3 %}
+                                <br>Data Robustness 
+                            {% endif %}
+                        {% else %}
+                            None
+                        {% endif %}
+                        <a class="reasoning-link" data-reasoning-type="category" onclick="togglePopup(this)">(see reasoning)</a>
+                        <div class="reasoning-popup" data-reasoning-type="category">
+                            <p>{{ result.object.category_reasoning }}</p>
+                        </div>
+                        <br>
+                        {% endif %}
+
+                        {% if result.object.sector_reasoning != 'N/A' %}
+                            <b>Sector:</b>
+
+                            {% if result.object.politics_elections >= 3 or result.object.government_public >= 3 or result.object.judicial >= 3 or result.object.healthcare >= 3 or result.object.private >= 3 or result.object.academic >= 3 or result.object.international >= 3 or result.object.nonprofits >= 3 or result.object.other_sector >= 3%}
+                                {% if result.object.politics_elections >= 3 %}
+                                    <br>Politics and Elections
+                                {% endif %}
+                                {% if result.object.government_public >= 3 %}
+                                    <br>Government Agencies and Public Services
+                                {% endif %}
+                                {% if result.object.judicial >= 3 %}
+                                    <br>Judicial system 
+                                {% endif %}
+                                {% if result.object.healthcare >= 3 %}
+                                    <br>Healthcare 
+                                {% endif %}
+                                {% if result.object.private >= 3 %}
+                                    <br>Private Enterprises, Labor, and Employment 
+                                {% endif %}
+                                {% if result.object.academic >= 3 %}
+                                    <br>Academic and Research Institutions 
+                                {% endif %}
+                                {% if result.object.international >= 3 %}
+                                    <br>International Cooperation and Standards 
+                                {% endif %}
+                                {% if result.object.nonprofits >= 3 %}
+                                    <br>Nonprofits and NGOs 
+                                {% endif %}
+                                {% if result.object.other_sector >= 3 %}
+                                    <br>Hybrid, Emerging, and Unclassified 
+                                {% endif %}
+                            {% else %}
+                                None
+                            {% endif %}
+                            <a class="reasoning-link" data-reasoning-type="sector" onclick="togglePopup(this)">(see reasoning)</a>
+                            <div class="reasoning-popup" data-reasoning-type="sector">
+                                <p>{{ result.object.sector_reasoning }}</p>
+                            </div>
+                            <br>
+                        {% endif %}
+
+                        {% if result.object.total_keywords != 0 %}
+                            <b>Keywords (occurrence): </b>
+                            
+                            {% if result.object.keyword_artificial_intelligence != 0 %}
+                                artificial intelligence ({{result.object.keyword_artificial_intelligence}})
+                            {% endif %}
+                            {% if result.object.keyword_machine_learning != 0 %}
+                                machine learning ({{result.object.keyword_machine_learning}})
+                            {% endif %}
+                            {% if result.object.keyword_neural_network != 0 %}
+                                neural network ({{result.object.keyword_neural_network}}) 
+                            {% endif %}
+                            {% if result.object.keyword_deep_learning != 0 %}
+                                deep learning ({{result.object.keyword_deep_learning}})
+                            {% endif %}
+                            {% if result.object.keyword_automated != 0 %}
+                                automated ({{result.object.keyword_automated}})
+                            {% endif %}
+                            {% if result.object.keyword_deepfake != 0 %}
+                                deepfake ({{result.object.keyword_deepfake}})
+                            {% endif %}
+                            {% if result.object.keyword_synthetic_media != 0 %}
+                                synthetic media ({{result.object.keyword_synthetic_media}})
+                            {% endif %}
+                            {% if result.object.keyword_large_language_model != 0 %}
+                                large language model ({{result.object.keyword_large_language_model}})
+                            {% endif %}
+                            {% if result.object.keyword_foundation_model != 0 %}
+                                foundation model ({{result.object.keyword_foundation_model}})
+                            {% endif %}
+                            {% if result.object.keyword_chatbot != 0 %}
+                                chatbot ({{result.object.keyword_chatbot}})
+                            {% endif %}
+                            {% if result.object.keyword_recommendation_system != 0 %}
+                                recommendation system ({{result.object.keyword_recommendation_system}})
+                            {% endif %}
+                            {% if result.object.keyword_algorithm != 0 %}
+                                algorithm ({{result.object.keyword_algorithm}})
+                            {% endif %}
+                            {% if result.object.keyword_autonomous_vehicle != 0 %}
+                                autonomous vehicle ({{result.object.keyword_autonomous_vehicle}})
+                            {% endif %}
+                            {% if result.object.keyword_instances %}
+                            <a href="javascript:void(0);" onclick="toggleContext('{{ result.id }}')">show keywords in context</a>
+                            {% endif %}
+                            <br>
+                        {% endif %}
+
+                        <!-- "Show in context" link 
+                        <a href="javascript:void(0);" onclick="toggleContext('{{ result.id }}')">Show in context</a>
+                        -->
+                        <!-- Context content (hidden by default) -->
+                        <div id="context-{{ result.id }}" class="context-content" style="display:none;">
+                            {% for instance in result.object.keyword_instances %}
+                                ...{{ instance }}...<br><br>
+                            {% endfor %}
+                        </div>
+
+                        <!--
+                        <a id="show-hide-link">Show in context</a>
+                        <div id="keyword-instances" style="display: none;">
+                            {% if result.object.keyword_instances %}
+                                {% for instance in result.object.keyword_instances %}
+                                    ...{{ instance }}...<br><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        -->
+
+                        <!--print keyword instances if they exist
+                        {% if result.object.keyword_instances %}
+                            {% for instance in result.object.keyword_instances %}
+                                ...{{instance}}...<br><br>
+                            {% endfor %}
+                        {% endif %}-->
+
+                        <!--print snippets if they exist-->
+                        {% if result.highlighted and result.highlighted.text %}
+                            {% with has_snippet=False %}
+                                {% for snippet in result.highlighted.text %}
+                                    {% if snippet|safe and not has_snippet %}
+                                        {% with has_snippet=True %}
+                                            <b>Text Sample: </b><br>
+                                            ...{{ snippet|safe }}...
+                                        {% endwith %}
+                                    {% elif snippet|safe %}
+                                        ...{{ snippet|safe }}...
+                                    {% endif %}
+                                {% endfor %}
+                            {% endwith %}
+                        {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}  
+
+        
+        <!--pagination buttons at bottom of page-->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                
+
+            {% if shown_bills.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1&{{ query_string }}">&laquo First</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ shown_bills.previous_page_number }}&{{ query_string }}"> Previous </a></li>
+            {% endif %}
+
+            <li class="page-item disabled"><a href="#" class="page-link"> Page {{ shown_bills.number }} of {{ shown_bills.paginator.num_pages }}</a></li>
+
+            {% if shown_bills.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ shown_bills.next_page_number }}&{{ query_string }}"> Next </a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ shown_bills.paginator.num_pages }}&{{ query_string }}">Last &raquo</a></li>
+            {% endif %}
+
+            </ul>
+        </nav>
+
+        <!--if no results, print that and skip pagination-->
+        {% else %}
+            <h1> No results found </h1>
+        {% endif %} 
+    {% endif %}
+
+    </div>
+</div>
+
+<script>
+function togglePopup(element) {
+    var billContainer = element.closest('.content')
+    //var reasoningType = element.nextElementSibling;
+    var popup = element.nextElementSibling;
+    var isVisible = popup.style.display === "block";
+    closeAllPopups();
+
+    if (!isVisible) {
+        popup.style.display = "block";
+        positionPopup(element, popup);
+    }
+}
+
+function closeAllPopups() {
+    var popups = document.querySelectorAll(".reasoning-popup");
+    popups.forEach(function(popup) {
+        popup.style.display = "none";
+    });
+}
+
+document.addEventListener('click', function(event) {
+    if (!event.target.matches('.reasoning-link')) {
+        closeAllPopups();
+    }
+});
+
+function toggleContext(id) {
+    var element = document.getElementById('context-' + id);
+    if (element.style.display === 'none') {
+        element.style.display = 'block';
+    } else {
+        element.style.display = 'none';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const showHideLink = document.getElementById('show-hide-link');
+    const keywordInstances = document.getElementById('keyword-instances');
+
+    showHideLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        keywordInstances.style.display = keywordInstances.style.display === 'none' ? 'block' : 'none';
+    });
+});
+
+</script>
+
+{% endblock %}

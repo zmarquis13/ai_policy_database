@@ -1,0 +1,268 @@
+<!--html file for the sidebar-->
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'search/style.css' %}">
+
+
+
+<div class="sidebar">
+    <form class="sidebar-form" method="get" action="">
+
+        <!--stylesheet for expansion arrows-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+        <!--collection filter-->
+        <h3 class="category-title" aria-expanded="false"><i class="fas fa-angle-right caret"></i> Collection </h3>
+
+        <div class="category-content">
+            <label><input type="checkbox" name="collection" value="Legislation" {% if 'Legislation' in selected_collections %}checked{% endif %}> Legislation </label>
+            <label><input type="checkbox" name="collection" value="Code of Federal Regulations" {% if 'Code of Federal Regulations' in selected_collections %}checked{% endif %}> Code of Federal Regulations </label>
+            <label><input type="checkbox" name="collection" value="Congressional Record" {% if 'Congressional Record' in selected_collections %}checked{% endif %}> Congressional Record </label>
+            <label><input type="checkbox" name="collection" value="Congressional Hearings" {% if 'Congressional Hearings' in selected_collections %}checked{% endif %}> Congressional Hearings </label>
+        </div>
+
+        <!--title with caret-->
+        <h3 class="category-title" aria-expanded="false"><i class="fas fa-angle-right caret"></i> Search </h3>
+
+        <!--collapsible content with search box-->
+        <div class="category-content">
+          <input type="text" name="q" value="{{ sidebar_search}}" placeholder="Search by text">
+        </div>
+
+        <!--sort filter-->
+        <h3 class="category-title" aria-expanded="false"><i class="fas fa-angle-right caret"></i> Sort by </h3>
+
+        <div class="category-content">
+            <span><b>All Items</b></span>
+            <label><input type="radio" name="sort" value="relevance" {% if sort == 'relevance' %}checked{% endif %}> Search relevance </label>
+            <label><input type="radio" name="sort" value="newest_status" {% if sort == 'newest_status' %}checked{% endif %}> Newest status </label>
+            <label><input type="radio" name="sort" value="oldest_status" {% if sort == 'oldest_status' %}checked{% endif %}> Oldest status </label>
+            <label><input type="radio" name="sort" value="keyword" {% if sort == 'keyword' %}checked{% endif %}> Keyword occurrence </label>
+
+            <span><br><b>Legislation Only</b></span>
+            <label><input type="radio" name="sort" value="newest_action" {% if sort == 'newest_action' %}checked{% endif %}> Newest action </label>
+            <label><input type="radio" name="sort" value="oldest_action" {% if sort == 'oldest_action' %}checked{% endif %}> Oldest action </label>
+        </div>
+
+          <!--date filter-->
+          <h3 class="category-title" aria-expanded="false"><i class="fas fa-angle-right caret"></i> Status Date </h3>
+          
+          <div class="category-content">
+            <label> On or after: <br> <input type="date" name="start_date" value="{{ start_date|default_if_none:'' }}"></label>
+            <label> On or before: <br> <input type="date" name="end_date" value="{{ end_date|default_if_none:'' }}"></label>
+          </div>
+
+          <!--jurisdiction filter-->
+          <h3 class="category-title" aria-expanded="false"><i class="fas fa-angle-right caret"></i> Jurisdiction </h3>
+
+          <div class="category-content">
+            <label><input type="checkbox" name="jurisdiction" value="Federal" {% if 'Federal' in jurisdiction %}checked{% endif %}> Federal</label>
+            <label><input type="checkbox" name="jurisdiction" value="District of Columbia" {% if 'District of Columbia' in jurisdiction %}checked{% endif %}> District of Columbia</label>
+            <label><input type="checkbox" name="jurisdiction" value="Alabama" {% if 'Alabama' in jurisdiction %}checked{% endif %}> Alabama</label>
+            <label><input type="checkbox" name="jurisdiction" value="Alaska" {% if 'Alaska' in jurisdiction %}checked{% endif %}> Alaska</label>
+            <label><input type="checkbox" name="jurisdiction" value="Arizona" {% if 'Arizona' in jurisdiction %}checked{% endif %}> Arizona</label>
+            <label><input type="checkbox" name="jurisdiction" value="Arkansas" {% if 'Arkansas' in jurisdiction %}checked{% endif %}> Arkansas</label>
+            <label><input type="checkbox" name="jurisdiction" value="California" {% if 'California' in jurisdiction %}checked{% endif %}> California</label>
+            <label><input type="checkbox" name="jurisdiction" value="Colorado" {% if 'Colorado' in jurisdiction %}checked{% endif %}> Colorado</label>
+            <label><input type="checkbox" name="jurisdiction" value="Connecticut" {% if 'Connecticut' in jurisdiction %}checked{% endif %}> Connecticut</label>
+            <label><input type="checkbox" name="jurisdiction" value="Delaware" {% if 'Delaware' in jurisdiction %}checked{% endif %}> Delaware</label>
+            <label><input type="checkbox" name="jurisdiction" value="Florida" {% if 'Florida' in jurisdiction %}checked{% endif %}> Florida</label>
+            <label><input type="checkbox" name="jurisdiction" value="Georgia" {% if 'Georgia' in jurisdiction %}checked{% endif %}> Georgia</label>
+            <label><input type="checkbox" name="jurisdiction" value="Hawaii" {% if 'Hawaii' in jurisdiction %}checked{% endif %}> Hawaii</label>
+            <label><input type="checkbox" name="jurisdiction" value="Idaho" {% if 'Idaho' in jurisdiction %}checked{% endif %}> Idaho</label>
+            <label><input type="checkbox" name="jurisdiction" value="Illinois" {% if 'Illinois' in jurisdiction %}checked{% endif %}> Illinois</label>
+            <label><input type="checkbox" name="jurisdiction" value="Indiana" {% if 'Indiana' in jurisdiction %}checked{% endif %}> Indiana</label>
+            <label><input type="checkbox" name="jurisdiction" value="Iowa" {% if 'Iowa' in jurisdiction %}checked{% endif %}> Iowa</label>
+            <label><input type="checkbox" name="jurisdiction" value="Kansas" {% if 'Kansas' in jurisdiction %}checked{% endif %}> Kansas</label>
+            <label><input type="checkbox" name="jurisdiction" value="Kentucky" {% if 'Kentucky' in jurisdiction %}checked{% endif %}> Kentucky</label>
+            <label><input type="checkbox" name="jurisdiction" value="Louisiana" {% if 'Louisiana' in jurisdiction %}checked{% endif %}> Louisiana</label>
+            <label><input type="checkbox" name="jurisdiction" value="Maine" {% if 'Maine' in jurisdiction %}checked{% endif %}> Maine</label>
+            <label><input type="checkbox" name="jurisdiction" value="Maryland" {% if 'Maryland' in jurisdiction %}checked{% endif %}> Maryland</label>
+            <label><input type="checkbox" name="jurisdiction" value="Massachusetts" {% if 'Massachusetts' in jurisdiction %}checked{% endif %}> Massachusetts</label>
+            <label><input type="checkbox" name="jurisdiction" value="Michigan" {% if 'Michigan' in jurisdiction %}checked{% endif %}> Michigan</label>
+            <label><input type="checkbox" name="jurisdiction" value="Minnesota" {% if 'Minnesota' in jurisdiction %}checked{% endif %}> Minnesota</label>
+            <label><input type="checkbox" name="jurisdiction" value="Mississippi" {% if 'Mississippi' in jurisdiction %}checked{% endif %}> Mississippi</label>
+            <label><input type="checkbox" name="jurisdiction" value="Missouri" {% if 'Missouri' in jurisdiction %}checked{% endif %}> Missouri</label>
+            <label><input type="checkbox" name="jurisdiction" value="Montana" {% if 'Montana' in jurisdiction %}checked{% endif %}> Montana</label>
+            <label><input type="checkbox" name="jurisdiction" value="Nebraska" {% if 'Nebraska' in jurisdiction %}checked{% endif %}> Nebraska</label>
+            <label><input type="checkbox" name="jurisdiction" value="Nevada" {% if 'Nevada' in jurisdiction %}checked{% endif %}> Nevada</label>
+            <label><input type="checkbox" name="jurisdiction" value="New Hampshire" {% if 'New Hampshire' in jurisdiction %}checked{% endif %}> New Hampshire</label>
+            <label><input type="checkbox" name="jurisdiction" value="New Jersey" {% if 'New Jersey' in jurisdiction %}checked{% endif %}> New Jersey</label>
+            <label><input type="checkbox" name="jurisdiction" value="New Mexico" {% if 'New Mexico' in jurisdiction %}checked{% endif %}> New Mexico</label>
+            <label><input type="checkbox" name="jurisdiction" value="New York" {% if 'New York' in jurisdiction %}checked{% endif %}> New York</label>
+            <label><input type="checkbox" name="jurisdiction" value="North Carolina" {% if 'North Carolina' in jurisdiction %}checked{% endif %}> North Carolina</label>
+            <label><input type="checkbox" name="jurisdiction" value="North Dakota" {% if 'North Dakota' in jurisdiction %}checked{% endif %}> North Dakota</label>
+            <label><input type="checkbox" name="jurisdiction" value="Ohio" {% if 'Ohio' in jurisdiction %}checked{% endif %}> Ohio</label>
+            <label><input type="checkbox" name="jurisdiction" value="Oklahoma" {% if 'Oklahoma' in jurisdiction %}checked{% endif %}> Oklahoma</label>
+            <label><input type="checkbox" name="jurisdiction" value="Oregon" {% if 'Oregon' in jurisdiction %}checked{% endif %}> Oregon</label>
+            <label><input type="checkbox" name="jurisdiction" value="Pennsylvania" {% if 'Pennsylvania' in jurisdiction %}checked{% endif %}> Pennsylvania</label>
+            <label><input type="checkbox" name="jurisdiction" value="Rhode Island" {% if 'Rhode Island' in jurisdiction %}checked{% endif %}> Rhode Island</label>
+            <label><input type="checkbox" name="jurisdiction" value="South Carolina" {% if 'South Carolina' in jurisdiction %}checked{% endif %}> South Carolina</label>
+            <label><input type="checkbox" name="jurisdiction" value="South Dakota" {% if 'South Dakota' in jurisdiction %}checked{% endif %}> South Dakota</label>
+            <label><input type="checkbox" name="jurisdiction" value="Tennessee" {% if 'Tennessee' in jurisdiction %}checked{% endif %}> Tennessee</label>
+            <label><input type="checkbox" name="jurisdiction" value="Texas" {% if 'Texas' in jurisdiction %}checked{% endif %}> Texas</label>
+            <label><input type="checkbox" name="jurisdiction" value="Utah" {% if 'Utah' in jurisdiction %}checked{% endif %}> Utah</label>
+            <label><input type="checkbox" name="jurisdiction" value="Vermont" {% if 'Vermont' in jurisdiction %}checked{% endif %}> Vermont</label>
+            <label><input type="checkbox" name="jurisdiction" value="Virginia" {% if 'Virginia' in jurisdiction %}checked{% endif %}> Virginia</label>
+            <label><input type="checkbox" name="jurisdiction" value="Washington" {% if 'Washington' in jurisdiction %}checked{% endif %}> Washington</label>
+            <label><input type="checkbox" name="jurisdiction" value="West Virginia" {% if 'West Virginia' in jurisdiction %}checked{% endif %}> West Virginia</label>
+            <label><input type="checkbox" name="jurisdiction" value="Wisconsin" {% if 'Wisconsin' in jurisdiction %}checked{% endif %}> Wisconsin</label>
+            <label><input type="checkbox" name="jurisdiction" value="Wyoming" {% if 'Wyoming' in jurisdiction %}checked{% endif %}> Wyoming</label>
+        </div>
+
+
+        <h3 class="category-title" aria-expanded="false"><i class="fas fa-angle-right caret"></i> Status </h3>
+        <div class="category-content">
+            <span><b>Regulations and Documents</b></span>
+            <label><input type="checkbox" name="status" value="Issued" {% if 'Issued' in selected_status %}checked{% endif %}> Issued </label>
+            <span><br><b>Legislation</b></span>
+            <label><input type="checkbox" name="status" value="Introduced" {% if 'Introduced' in selected_status %}checked{% endif %}> Introduced </label>
+            <label><input type="checkbox" name="status" value="Engrossed" {% if 'Engrossed' in selected_status %}checked{% endif %}> Engrossed </label>
+            <label><input type="checkbox" name="status" value="Enrolled" {% if 'Enrolled' in selected_status %}checked{% endif %}> Enrolled </label>
+            <label><input type="checkbox" name="status" value="Passed" {% if 'Passed' in selected_status %}checked{% endif %}> Passed </label>
+            <label><input type="checkbox" name="status" value="Vetoed" {% if 'Vetoed' in selected_status %}checked{% endif %}> Vetoed </label>
+            <label><input type="checkbox" name="status" value="Failed" {% if 'Failed' in selected_status %}checked{% endif %}> Failed </label>
+        </div>
+
+        <h3 class="category-title" aria-expanded="false"><i class="fas fa-angle-right caret"></i> Category </h3>
+        <div class="category-content">
+          
+            <label><input type="checkbox" name="category" value="societal_impact" {% if 'societal_impact' in selected_categories %}checked{% endif %}> Societal Impact </label>
+            <label><input type="checkbox" name="category" value="data_governance" {% if 'data_governance' in selected_categories %}checked{% endif %}> Data Governance </label>
+            <label><input type="checkbox" name="category" value="system_integrity" {% if 'system_integrity' in selected_categories %}checked{% endif %}> System Integrity </label>
+            <label><input type="checkbox" name="category" value="robustness" {% if 'robustness' in selected_categories %}checked{% endif %}> Robustness </label>
+            <a class="reasoning-link" onclick="togglePopup(this)">About these categories</a>
+          <div class="reasoning-popup">
+              <p> <b>Social Impact:</b> encompasses legislation that specifically addresses the impact of AI on society and individuals, including but not limited to; reducing the carbon footprint of AI systems, holding system developers accountable for the outputs of these systems, the establishment of new fairness and bias metrics to guard against AI-driven discrimination, the use of AI by minors, consumer protections for AI products, regulations that address psychological, physical, or material harm caused by interactions with AI systems, and the role of AI in misinformation, public discourse, and the erosion of trust in public institutions.<br><br>
+
+              <b>Data Governance:</b> encompasses legislation that specifically addresses the secure and accurate collection and management of data within AI systems, including but not limited to; mandates for rectifying inaccuracies in AI data sets, mandates for ensuring AI data sets are free from biases, regulations that address intellectual property concerns with the unauthorized use of protected material in AI data sets, and requirements for data encryption, data anonymization, controlled access, and compliance with consumer privacy laws.<br><br>
+              
+              <b>System Integrity:</b> encompasses legislation that specifically addresses the inherent security, transparency, and control of AI systems, including but not limited to; mandates for human intervention and oversight in AI processes, standards for the interoperability of AI systems in essential services, and the implementation of security measures such as threat modeling, penetration testing, and incident response.<br><br>
+              
+              <b>Robustness:</b> encompasses legislation that specifically addresses the development and adoption of new benchmarks for AI performance, including but not limited to; the certification of AI systems against new benchmarks, ensuring compliance with international standards, requirements for auditing and transparent reporting to verify continuous regulatory compliance, and the creation of specialized oversight bodies. <br><br>
+              </p>
+          </div>
+        </div>
+
+        <h3 class="category-title" aria-expanded="false"><i class="fas fa-angle-right caret"></i> Sector </h3>
+        <div class="category-content">
+            <label><input type="checkbox" name="sector" value="politics_elections" {% if 'politics_elections' in selected_sectors %}checked{% endif %}> Politics and Elections </label>
+            <label><input type="checkbox" name="sector" value="government_public" {% if 'government_public' in selected_sectors %}checked{% endif %}> Government Agencies and Public Services </label>
+            <label><input type="checkbox" name="sector" value="judicial" {% if 'judicial' in selected_sectors  %}checked{% endif %}> Judicial System </label>
+            <label><input type="checkbox" name="sector" value="healthcare" {% if 'healthcare' in selected_sectors %}checked{% endif %}> Healthcare </label>
+            <label><input type="checkbox" name="sector" value="private" {% if 'private' in selected_sectors %}checked{% endif %}> Private Enterprises, Labor, and Employment </label>
+            <label><input type="checkbox" name="sector" value="academic" {% if 'academic' in selected_sectors %}checked{% endif %}> Academic and Research Institutions </label>
+            <label><input type="checkbox" name="sector" value="international" {% if 'international' in selected_sectors %}checked{% endif %}> International Cooperation and Standards </label>
+            <label><input type="checkbox" name="sector" value="nonprofits" {% if 'nonprofits' in selected_sectors %}checked{% endif %}> Nonprofits and NGOs </label>
+            <label><input type="checkbox" name="sector" value="other_sector" {% if 'other_sector' in selected_sectors %}checked{% endif %}> Hybrid, Emerging, and Unclassified </label>
+            <a class="reasoning-link" onclick="togglePopup(this)">About these sectors</a>
+            <div class="reasoning-popup">
+              <p>
+                <b>Politics and Elections:</b> encompasses legislation that specifically addresses the use and regulation of AI in political campaigns, electoral processes, and related legislative activities.<br><br>
+
+                <b>Government Agencies and Public Services:</b> encompasses legislation that specifically addresses the use and regulation of AI by state and federal government agencies, as well as AI applications in the delivery of public services and enhancing government operations.<br><br>
+                
+                <b>Judicial System:</b> encompasses legislation that specifically addresses the use and regulation of AI by judicial and legal systems, including but not limited to the use of AI in case management and legal decision making.<br><br>
+                
+                <b>Healthcare:</b> encompasses legislation that specifically addresses the use and regulation of AI in healthcare settings, including but not limited to AI applications within hospitals and clinics, the development of AI-enabled diagnostic tools and related medical technologies, and the management of medical data.<br><br>
+                
+                <b>Private Enterprises, Labor, and Employment:</b> encompasses legislation that specifically addresses the use and regulation of AI in business environments, ensuring fair competition, and the effects of AI on labor markets, employment practices, and corporate governance.<br><br>
+                
+                <b>Academic and Research Institutions:</b> encompasses legislation that specifically addresses the use and regulation of AI in educational and research contexts.<br><br>
+                
+                <b>International Cooperation and Standards:</b> encompasses laws and agreements that address international cooperation on AI development, use, and regulation, including but not limited to multinational standards, cross-border data practices, and global ethical guidelines for AI.<br><br>
+                
+                <b>Nonprofits and NGOs:</b> encompasses legislation that specifically addresses the use and regulation of AI by nonprofits and non-governmental organizations and institutions.<br><br>
+                
+                <b>Hybrid, Emerging, and Unclassified:</b> encompasses legislation that doesn't neatly fit into other categories, as well as the application of AI in hybrid or emerging sectors.<br><br>
+              </p>
+            </div>
+        </div>
+
+        <!--submit button-->
+        <div class="button_container">
+        <button class="btn" type="submit">Apply Filters</button>
+        </div>
+        <!-- note: just reloads the page with no context to clear all data -->
+        <div class="button_container">
+        <a href="results"> 
+            <div class="btn">Clear All</div>
+        </a>
+        </div>
+        
+    </form>
+</div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var titles = document.querySelectorAll('.category-title');
+      
+      //listen for click, show content and rotate caret
+      titles.forEach(function(title) {
+        title.addEventListener('click', function() {
+          var content = this.nextElementSibling;
+          if (content.style.display === 'block') {
+            content.style.display = 'none';
+          } else {
+            content.style.display = 'block';
+          }
+          const caret = title.querySelector('.caret');
+          caret.classList.toggle('expanded');
+        });
+      });
+    });
+
+    function togglePopup(element) {
+    var billContainer = element.closest('.content')
+    //var reasoningType = element.nextElementSibling;
+    var popup = element.nextElementSibling;
+    var isVisible = popup.style.display === "block";
+    closeAllPopups();
+
+    if (!isVisible) {
+        popup.style.display = "block";
+        positionPopup(element, popup);
+    }
+}
+
+function closeAllPopups() {
+    var popups = document.querySelectorAll(".reasoning-popup");
+    popups.forEach(function(popup) {
+        popup.style.display = "none";
+    });
+}
+
+document.addEventListener('click', function(event) {
+    if (!event.target.matches('.reasoning-link')) {
+        closeAllPopups();
+    }
+});
+
+function toggleContext(id) {
+    var element = document.getElementById('context-' + id);
+    if (element.style.display === 'none') {
+        element.style.display = 'block';
+    } else {
+        element.style.display = 'none';
+    }
+}
+
+    //may be unnecessary, should test
+    document.getElementById('clear-filters').addEventListener('click', function() {
+    var form = document.getElementById('search-form');
+    form.querySelector('input[name="q"]').value = '';
+
+    var radios = form.querySelectorAll('input[type="radio"]');
+    for (var i = 0; i < radios.length; i++) {
+        radios[i].checked = false;
+    }
+    var boxes = form.querySelectorAll('input[type="checkbox"]');
+    for (var i = 0; i < boxes.length; i++) {
+        boxes[i].checked = false;
+    }
+    form.querySelector('input[value="relevance"]').checked = false;
+    //when querying is faster uncomment this 
+    form.submit();
+    });
+  </script>

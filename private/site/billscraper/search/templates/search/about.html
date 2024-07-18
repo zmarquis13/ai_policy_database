@@ -1,0 +1,36 @@
+<!-- html for the about page -->
+
+{% extends 'search/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W6F27PLMJN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W6F27PLMJN');
+</script>
+
+<link rel="stylesheet" href="{% static 'search/style.css' %}">
+
+    <div>
+        <h2> About this site: </h2>
+            <p> This site was created at the Center for Human-Compatible AI at UC Berkeley. It aims to track all policy related to artificial intelligence in the United States. This includes federal regulations, presidential executive orders, and both proposed and passed legislation on the federal level and in all 50 states plus the District of Columbia. Additionally, this database includes federal congressional hearings and proceedings in order to monitor the legislative conversation. The database tracks back to January of 2023 and is automatically updated daily with the latest materials. </p>
+        <h2> Methodology: </h2>
+            <p> This site uses keywords to track materials relevant to artificial intelligence. The current keywords used are     "artificial intelligence," "machine learning," "neural network," "deep learning," "automated," "deepfake," "synthetic media," "large language model," "foundation model," "chatbot," "recommendation system," "autonomous vehicle," and "algorithm." This list may expand as new AI technologies become more prevalent. Legislation is sourced from <a href="legiscan.com">legiscan.com</a> and federal documents are sourced from <a href="govinfo.gov">govinfo.gov</a>. The category and sector determinations are made by gpt4o-mini. </p>
+        <h2> Team: </h2>
+            <p>
+                <b>Software development:</b> Zeno Marquis, Julian Yocum<br>
+                <b>UI design:</b> Julia Morris, Livia Morris
+            </p>
+        <h2> Contact: </h2>
+            <!--clicking on emails brings up email-->
+            <p>To report a bug or suggest improvements, please contact Zeno Marquis at <a href= "mailto: zeno@humancompatible.ai"> zeno@humancompatible.ai </a><br>
+            For collaborations, please contact Livia and Julia Morris at <a href= "mailto: livia@humancompatible.ai"> livia@humancompatible.ai </a> and <a href= "mailto: julia@humancompatible.ai"> julia@humancompatible.ai </a></p>
+    </div>
+{% endblock %}

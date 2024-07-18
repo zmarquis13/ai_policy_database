@@ -1,0 +1,47 @@
+<!-- html for the home page -->
+
+{% extends 'search/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W6F27PLMJN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W6F27PLMJN');
+</script>
+
+<link rel="stylesheet" href="{% static 'search/style.css' %}">
+
+<div class="message_containter">
+
+<h1> Welcome to the AI Policy Database! </h1>
+
+	<p><br></p>
+
+	<h3> A database of AI-related legislation and regulation in the United States </h3>
+</div>
+
+<!--search bar-->
+<div class="home_search_container">
+    <div class="home_search_bar">
+        <form class="d-flex" method=POST action="{% url 'results' %}">
+            {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search {{ num_bills }} Items" aria-label="Search" name="searched" required>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+<p></p>
+<p></p>
+<div class="homepage-buttons">
+<a href="/search/results?sort=newest_status"><button type="button" class="btn btn-outline-success wide-button">See what's new</button></a>
+<a href="/search/results"><button type="button" class="btn btn-outline-success wide-button">Advanced search</button></a>
+</div>
+
+{% endblock %}

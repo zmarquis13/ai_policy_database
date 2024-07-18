@@ -1,0 +1,59 @@
+{% extends 'search/base.html' %}
+
+{% block content %}
+    
+<div class="content">
+
+    <div class="container">
+        <div class="col-md-3">
+            {% include 'search/sidebar.html' %}
+        </div>
+
+    {% if shown_bills %}
+
+    <h1> All Content: </h1>
+
+        {% for bill in shown_bills %}
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <strong>{{ bill.state }} {{ bill.bill_number }}: {{ bill.title}}</strong>
+                </div>
+                <div class="card-body">
+                <p class="card-text"> 
+                    <b>Description:</b> {{ bill.description }}<br>
+                    <b>Status date:</b> {{ bill.status_date }} <br>
+                    <b>Status:</b> {{ bill.status }} <br>
+                    <b>Primary sponsor:</b> {{ bill.primary_sponsor }}
+                </p>
+
+                </div>
+            </div>
+        {% endfor %}  
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                
+
+            {% if shown_bills.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1&{{ query_string }}">&laquo First</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ shown_bills.previous_page_number }}&{{ query_string }}"> Previous </a></li>
+            {% endif %}
+
+            <li class="page-item disabled"><a href="#" class="page-link"> Page {{ shown_bills.number }} of {{ shown_bills.paginator.num_pages }}</a></li>
+
+            {% if shown_bills.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ shown_bills.next_page_number }}&{{ query_string }}"> Next </a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ shown_bills.paginator.num_pages }}&{{ query_string }}">Last &raquo</a></li>
+            {% endif %}
+
+            </ul>
+        </nav>
+
+        {% else %}
+            <h1> No results found </h1>
+        {% endif %} 
+    </div>
+</div>
+
+{% endblock %}
