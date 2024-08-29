@@ -83,7 +83,7 @@ In private/govinfo:
 
 In private/legiscan:
 
-`php legiscand.php`: looks for all relevant bills that aren't already in the legiscan_api postgresql database and adds them to the database and downloads their information and text files. Configurable in private/legiscan/config.php (omitted in this repository for security purposes)
+`php legiscand.php`: looks for all relevant bills that aren't already in the legiscan_api postgresql database and adds them to the database and downloads their information and text files. Configurable in private/legiscan/config.php
 
 These commands are all executed automatically with cron jobs running the scripts in the private/cron_scripts directory
 
