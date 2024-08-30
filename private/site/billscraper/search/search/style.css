@@ -39,6 +39,7 @@ html, body{
 
 .homepage-buttons{
   display: flexbox;
+  margin-bottom: 35%;
 }
 
 .wide-button {
@@ -260,4 +261,8 @@ input[type='checkbox'] {
 .pagination {
   margin-top: 20px;
   padding-bottom: 100px;
+}
+
+.about-content {
+  margin-bottom: 20%;
 }
