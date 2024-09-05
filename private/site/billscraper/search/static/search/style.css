@@ -178,6 +178,7 @@ input[type='checkbox'] {
 .no-search-message {
   margin-left: 20%;
   margin-right: auto;
+  margin-bottom: calc(80vh - 100px);
 }
 
 .card-header {
