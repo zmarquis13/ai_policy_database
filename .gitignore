@@ -59,6 +59,10 @@ private/govinfo/content_list.json
 */content_list.json
 */backup_list.json
 
+# urls redirect for real site only #
+####################################
+private/site/billscraper/billscraper/urls.py
+
 # Config for legiscan #
 #######################
 private/legiscan/config.php
