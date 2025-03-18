@@ -15,6 +15,8 @@ class Bill(models.Model):
     description = models.CharField(default="N/A")
     text = models.CharField(default="N/A")
 
+    summary = models.CharField(default="N/A")
+
     #link to item in its source database
     url = models.CharField(default="legiscan.com")
 
