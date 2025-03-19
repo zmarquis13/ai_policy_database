@@ -25,7 +25,7 @@ SUMMARY_PROMPT = """Please summarize the following bill in 20-30 words based on 
 
 def summarize_all_items():
     #filters on time
-    content_list = Bill.objects.filter(status_date__gte='2024-01-01')
+    content_list = Bill.objects.all()
     #content_list = content_list.filter(status_date__gte='2024-05-01')
 
     items_classified = 0
