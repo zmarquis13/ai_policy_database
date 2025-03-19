@@ -72,9 +72,9 @@
                         {% if result.object.description != 'N/A' %}
                         <b>Description:</b> {{ result.object.description }}<br>
                         {% endif %}
-                        <b>Summary:</b> {{ result.object.summary }} <br>
-                        <!--{% if result.object.summary != 'N/A' %}-->
-                        <!--{% endif %}-->
+                        {% if result.object.summary != 'N/A' %}
+			<b>Summary:</b> {{ result.object.summary }} <br>
+                        {% endif %}
                         {% if result.object.content_collection != 'N/A' %}
                         <b>Collection:</b> {{ result.object.content_collection }}<br>
                         {% endif %}
