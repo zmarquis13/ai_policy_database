@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ['aipolicydatabase.com', '146.190.121.58']
 CSRF_TRUSTED_ORIGINS = [
         'https://aipolicydatabase.com',
         'https://citrispolicylab.org/',
+        'https://aipolicydb.com',
 ]
 
 # Application definition
