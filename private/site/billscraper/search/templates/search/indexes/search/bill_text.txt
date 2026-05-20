@@ -1,4 +1,0 @@
-{{ object.title }}
-{{ object.primary_sponsor }}
-{{ object.description }}
-{{ object.text }}
